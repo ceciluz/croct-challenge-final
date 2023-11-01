@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+      body {
+        background-image: none;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        color: grey;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Cor cinza translúcida */
+        z-index: -1;
+      }
+
+      #hero-banner {
+        text-align: center;
+      }
+      .cta {
+        background-color: #007bff; /* Cor de fundo do botão */
+        color: white; /* Cor do texto do botão */
+        padding: 10px 20px; /* Espaçamento interno do botão */
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+
+    </style>
+    <script src="https://cdn.croct.io/js/v1/lib/plug.js"></script>
+    <script>
+        croct.plug({appId: 'd37a2733-440d-4e6b-8f99-b0ba86ae2eb5'});
+    </script>
+    <script>
+        croct.fetch('homepage-hero').then(({content}) => {
+            const banner = document.getElementById('hero-banner');
+            const title = banner.querySelector('h1');
+            const subtitle = banner.querySelector('.subtitle');
+            const cta = banner.querySelector('.cta');
+            const body = document.body;
+            const backgroundImage = content.backgroundImageUrl;
+
+            if (backgroundImage) {
+              body.style.backgroundImage = `url('${backgroundImage}')`;
+            }
+
+            title.textContent = content.title;
+            subtitle.textContent = content.subtitle;
+            cta.textContent = content.cta.label;
+            cta.href = content.cta.link;
+        });
+    </script>
+  </head>
+  <body>
+    <div id="hero-banner">
+      <h1>Your static title</h1>
+      <p class="subtitle">Your static subtitle.</p>
+      <a class="cta" href="#">Your static CTA</a>
+    </div>
+  </body>
+</html>
